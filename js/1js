@@ -1,0 +1,41 @@
+const input = document.querySelector('#input');
+const btn = document.querySelector('#btn');
+const result = document.querySelector('#result');
+const total = document.querySelector('#total');
+let i = 0;
+
+// добавление события на клик по кнопке
+btn.addEventListener('click', event => {
+    //result.innerHTML +=`<li>${input.value}</li>`
+    if (input.value === '') return
+    createDeleteElements(input.value);
+    input.value = ''
+});
+
+function createDeleteElements(value) {
+    i++;
+    const btn = document.createElement('button');
+    const li = document.createElement('li');
+
+    li.className = 'li';
+    li.textContent = value;
+    
+    btn.className = 'btn';
+    btn.textContent = 'add';
+    li.appendChild(btn);
+
+    //удаление добавленных li
+    btn.addEventListener('click', event => {
+        i--;
+        total.textContent = i
+        result.removeChild(li);
+    });
+
+    //Активируем класс li-active,если его не было, а если был, убираем
+    li.addEventListener('click', event => {
+        li.classList.toggle('li-active');
+    });
+
+    result.appendChild(li);    
+    total.textContent = i;
+};
